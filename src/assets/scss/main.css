@@ -1,0 +1,170 @@
+@import url(../fonts/fonts.css);
+* {
+  text-decoration: none !important;
+  list-style: none !important;
+  font-family: "Poppins-Medium";
+}
+
+.app .navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+}
+.app .navbar-list__menu {
+  display: flex;
+  align-items: center;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.app .navbar-list:not(:last-child) {
+  margin-right: 39px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  text-align: right;
+  letter-spacing: -0.35px;
+  color: #28293D !important;
+}
+.app .navbar-list:not(:last-child) a {
+  color: #28293D;
+}
+.app .navbar .log-in {
+  width: 175px;
+  border: 2px solid #3366FF;
+  color: #3366FF;
+  border-radius: 8px;
+  flex: none;
+  /* order: 4; */
+  flex-grow: 0;
+}
+.app .section-items {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.app .section-items .section-left {
+  width: 55%;
+  padding-top: 76px;
+}
+.app .section-items .section-left .title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
+  color: #1D1D1F;
+}
+.app .section-items .section-left .tab-list {
+  margin-right: 100px;
+  margin-top: 40px;
+}
+.app .section-items .section-left .el-tabs--card > .el-tabs__header .el-tabs__nav, .app .section-items .section-left .el-tabs__nav is-top {
+  width: 100% !important;
+}
+.app .section-items .section-left .el-tabs--card > .el-tabs__header .el-tabs__item:first-child {
+  width: 50% !important;
+  text-align: center;
+}
+.app .section-items .section-left .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+  width: 50%;
+  text-align: center !important;
+}
+.app .section-items .section-left .summ-price {
+  margin: 7.5px 0;
+}
+.app .section-items .section-left .summ-btn {
+  padding: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px !important;
+  line-height: 21px;
+  text-transform: uppercase;
+  color: #2E384D;
+  text-align: center;
+  position: relative;
+}
+.app .section-items .section-left .summ-btn .span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px !important;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #2E5BFF;
+}
+.app .section-items .section-left .summ-btn .check-icon {
+  display: none;
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  z-index: 1;
+}
+.app .section-items .section-left .el-button:focus, .app .section-items .section-left .el-button:hover {
+  border-color: #2E5BFF;
+  background-color: #F9FAFF;
+}
+.app .section-items .section-left .el-button:focus .check-icon, .app .section-items .section-left .el-button:hover .check-icon {
+  display: block;
+  color: #2E5BFF;
+}
+.app .section-items .section-right {
+  width: 45%;
+  background-color: #F5F5F7;
+  position: relative;
+  padding: 67px 72px 72px;
+  min-height: 100%;
+}
+.app .section-items .section-right .text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: justify;
+  color: #28293D;
+  z-index: 2;
+}
+.app .section-items .section-right .quote-top {
+  position: absolute;
+  width: 60px;
+  height: 41px;
+  left: 49px;
+  top: 44px;
+  z-index: 0;
+}
+.app .section-items .section-right .quote-bottom {
+  position: absolute;
+  width: 60px;
+  height: 41px;
+  right: 50px;
+  top: 137px;
+  z-index: 0;
+}
+.app .section-items .section-right .image-rectangle {
+  position: inherit;
+  display: flex;
+}
+.app .section-items .section-right .image-rectangle .name {
+  display: block;
+  margin-top: 32px;
+  position: relative;
+  left: -78px;
+}
+.app .section-items .section-right .image-rectangle .name h5 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  text-align: justify;
+  letter-spacing: -0.352px;
+  color: #000000;
+}
+.app .section-items .section-right .image-rectangle .name span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  text-align: center;
+  letter-spacing: -0.352px;
+  color: #86868B;
+}/*# sourceMappingURL=main.css.map */

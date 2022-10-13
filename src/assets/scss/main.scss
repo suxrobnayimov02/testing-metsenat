@@ -1,0 +1,63 @@
+@import url(../fonts/fonts.css);
+* {
+    text-decoration: none !important;
+    list-style: none !important;
+    font-family: 'Poppins-Medium';
+}
+
+.app {
+    & .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+        
+        &-list__menu {
+            display: flex;
+            align-items: center;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        
+        &-list:not(:last-child) {
+            margin-right: 39px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 150%;
+            text-align: right;
+            letter-spacing: -0.35px;
+            color: #28293D !important;
+            & a {
+                color: #28293D;
+            }
+        }
+        & .log-in {
+            width: 175px;
+            border: 2px solid #3366FF;
+            color: #3366FF;
+            border-radius: 8px;
+            flex: none;
+            /* order: 4; */
+            flex-grow: 0;
+        }
+    }
+    & .main-login {
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        justify-content: center;
+        text-align: center;
+        & .login-page {
+            background: #FFFFFF;
+            border: 1px solid #EBEEFC;
+            box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            width: 380px;
+            height: 456px;
+            text-align: center;
+            padding: 30px;
+        }
+    }
+    
+}
