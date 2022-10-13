@@ -8,7 +8,7 @@ export const routes = [
       {
         name: 'home',
         path: '/home',
-        component: () => import("@/views/index.vue"),
+        component: () => import("@/views/sponsors/index.vue"),
         meta: {
           title: "Bosh sahifa",
         },
