@@ -80,7 +80,7 @@
         letter-spacing: -0.35px;
         color: #3365FC;
         width: 123px;
-        height: 45px;
+        height: 43px;
         text-align: center;
        
     }
@@ -101,5 +101,10 @@
         & .spacer {
             height: 12px;
         }
+    }
+    & .filter_list {
+        position: absolute;
+        right: 0;
+        top: 0;
     }
 }

@@ -1,91 +1,22 @@
 <template>
-  <div class="app">
-    <div class="container mx-auto">
-      <div class="flex mb-4 justify-between mt-5 mx-auto">
-        <div class="h-12">
-          <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-            <ul
-              class="flex flex-wrap -mb-px text-sm font-medium text-center"
-              id="myTab"
-              data-tabs-toggle="#myTabContent"
-              role="tablist"
-            >
-              <li class="mr-2" role="presentation">
-                <button
-                  class="
-                    inline-block
-                    p-4
-                    rounded-t-lg
-                    border-b-2
-                    text-blue-600
-                    hover:text-blue-600
-                    dark:text-blue-500 dark:hover:text-blue-500
-                    border-blue-600
-                    dark:border-blue-500
-                  "
-                  id="dashboard-tab"
-                  data-tabs-target="#dashboard"
-                  type="button"
-                  role="tab"
-                  aria-controls="dashboard"
-                  aria-selected="false"
-                >
-                  DASHBOARD
-                </button>
-              </li>
-              <li class="mr-2" role="presentation">
-                <button
-                  class="
-                    inline-block
-                    p-4
-                    rounded-t-lg
-                    border-b-2 border-transparent
-                    hover:text-gray-600 hover:border-gray-300
-                    dark:hover:text-gray-300 dark:border-transparent
-                    text-gray-500
-                    dark:text-gray-400
-                    border-gray-100
-                    dark:border-gray-700
-                  "
-                  id="sponsor-tab"
-                  data-tabs-target="#sponsor"
-                  type="button"
-                  role="tab"
-                  aria-controls="sponsor"
-                  aria-selected="true"
-                >
-                  HOMIYLAR
-                </button>
-              </li>
-              <li class="mr-2" role="presentation">
-                <button
-                  class="
-                    inline-block
-                    p-4
-                    rounded-t-lg
-                    border-b-2 border-transparent
-                    hover:text-gray-600 hover:border-gray-300
-                    dark:hover:text-gray-300 dark:border-transparent
-                    text-gray-500
-                    dark:text-gray-400
-                    border-gray-100
-                    dark:border-gray-700
-                  "
-                  id="students-tab"
-                  data-tabs-target="#students"
-                  type="button"
-                  role="tab"
-                  aria-controls="students"
-                  aria-selected="false"
-                >
-                  TALABALAR
-                </button>
-              </li>
-            </ul>
-          </div>
+  <div class="app main-tabs">
+    <div class="mx-auto container relative">
+      <div class="mx-auto">
+        <div class="h-12 w-full mt-4 mb-4">
+          <el-tabs v-model="activeTab" type="border-card" class=" seeker-tab d-flex justify-content-end " >
+            <el-tab-pane label="DASHBOARD" name="dashboard">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, ullam reprehenderit fugit ea veniam expedita ducimus. Distinctio architecto doloribus dicta, veritatis repudiandae eaque similique deserunt quibusdam, sint odit voluptates debitis.
+            </el-tab-pane>
+            <el-tab-pane label="HOMIYLAR" name="sponsor">
+              <Table />
+            </el-tab-pane>
+            <el-tab-pane label="TALABALAR" name="student">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est dignissimos itaque repudiandae, ipsa eligendi illum. Qui nobis ab at commodi autem quidem labore ex blanditiis, doloremque iste facilis reiciendis neque!
+            </el-tab-pane>
+          </el-tabs>
         </div>
-        <div class="flex h-12">
-          <form class="flex items-center">
+        <div class="flex h-12 filter_list">
+          <form class="flex items-center" style="height: 43px;">
             <div class="relative w-full">
               <div
                 class="
@@ -181,34 +112,69 @@
         </div>
       </div>
     </div>
-    <div id="myTabContent" class="tabs-result">
-      <div
-        class="container mx-auto p-4  rounded-lg dark:bg-gray-800"
-        id="dashboard"
-        role="tabpanel"
-        aria-labelledby="dashboard-tab"
-      >
-        <div class="overflow-x-auto relative">
-          <Table />
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
 <script>
 import Table from "./table.vue";
 export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-    name: "Index",
-    components: { Table }
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Index",
+  components: { Table },
+
+  data() {
+    return {
+      activeTab: 'sponsor'
+    }
+  },
+  methods: {
+  },
+
+  
 };
 </script>
 
-<style lang="scss" scoped>
-.app {
-  & .hover\:bg-blue-800:hover {
+<style >
+  .hover\:bg-blue-800:hover {
     background-color: #dae2fd;
   }
-}
+  .main-tabs {
+    background-color: #f5f5f7;
+  }
+  .el-tabs__nav-wrap::after {
+    height: 0;
+  }
+  .el-tabs--border-card {
+    border: none;
+    background-color: transparent;
+  }
+  .el-tabs--border-card>.el-tabs__header {
+    background-color: transparent;
+    border-bottom: 0px;
+  }
+  .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+    background: #3366FF;
+    color: white;
+    border-radius: 0px;
+  }
+  .el-tabs--border-card>.el-tabs__header .el-tabs__item {
+    border: 2px solid #E0E7FF;
+    width: 200px;
+    text-align: center;
+    height: 43px;
+    background-color: #ffffff;
+  }
+  .el-tabs--border-card>.el-tabs__header .el-tabs__item:nth-child(1) {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  .el-tabs--border-card>.el-tabs__header .el-tabs__item:nth-child(3) {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  /* .el-tabs__content {
+    background-color: #f5f5f7;
+  } */
+
 </style>

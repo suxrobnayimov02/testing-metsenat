@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <table class="w-full text-sm text-left">
+  <div class="w-full">
+    <table class="w-full text-sm text-left" :loading="loading">
       <thead class="text-xs uppercase">
         <tr class="text-gray-300 text-header">
           <th scope="col" class="py-3 px-6 text-gray-300" style="width: 45px">
@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white dark:bg-gray-800 mt-2 mb-2 tbody-tr">
+        <!-- <tr class="bg-white dark:bg-gray-800 mt-2 mb-2 tbody-tr">
           <th
             scope="row"
             class="
@@ -45,11 +45,12 @@
               <img src="@/assets/images/icons/eye1.svg" alt="" />
             </button>
           </td>
-        </tr>
+        </tr> -->
         <tr class="spacer">
           <td colspan="8"></td>
         </tr>
-        <tr class="bg-white dark:bg-gray-800 mt-2 mb-2 tbody-tr">
+        <tr class="bg-white dark:bg-gray-800 mt-2 mb-2 tbody-tr"
+					v-for="item in sponsors" :key="item.id">
           <th
             scope="row"
             class="
@@ -61,33 +62,88 @@
               dark:text-white
             "
           >
-            2
+            {{ item.id }}
           </th>
-          <td class="py-4 px-6">Xabibullayevich Alimov Abror</td>
-          <td class="py-4 px-6">+99899 973-72-60</td>
+          <td class="py-4 px-6">{{ item.full_name }}</td>
+          <td class="py-4 px-6">{{ item.phone }}</td>
           <td class="py-4 px-6">
-            <b>60 000 000</b><span class="uppercase pl-2">uzs</span>
+            <b>{{ item.sum }}</b><span class="uppercase pl-2">uzs</span>
           </td>
           <td class="py-4 px-6">
-            <b>2 000 000</b><span class="uppercase pl-2">uzs</span>
+            <b>{{ item.spent }}</b><span class="uppercase pl-2">uzs</span>
           </td>
-          <td class="py-4 px-6">22.09.2021</td>
-          <td class="py-4 px-6">Moderatsiyada</td>
+          <td class="py-4 px-6">{{ toLocaleDateString(item.created_at) }}</td>
+          <td class="py-4 px-6">{{ item.get_status_display }}</td>
           <td class="py-4 px-6">
-            <button class="eye" type="text">
+            <button class="eye" type="text" @click="dialogVisible = true">
               <img src="@/assets/images/icons/eye1.svg" alt="" />
             </button>
           </td>
         </tr>
-      </tbody>
+      </tbody>	
     </table>
+
+		<el-dialog v-model="dialogVisible" title="Tips" width="30%" draggable>
+			<span>It's a draggable Dialog</span>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="dialogVisible = false">Cancel</el-button>
+					<el-button type="primary" @click="dialogVisible = false"
+						>Confirm</el-button
+					>
+				</span>
+			</template>
+		</el-dialog>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "table",
+
+	data() {
+    return {
+			sponsors: [],
+			loading: true,
+			dialogVisible: false,
+			filter: {
+				page: 1,
+				total: 0,
+				per_page: 10,
+      }
+    }
+  },
+
+	mounted() {
+    this.getItems()
+	},
+
+  methods: {
+		...mapActions({ fetchSponsors: 'sponsor/index' }),
+		getItems() {
+      this.fetchSponsors(this.filter)
+        .then(res => {
+					this.sponsors = res.results
+        })
+        .finally(() => {
+					this.loading = false
+        })
+    },
+		toLocaleDateString(date) {
+      const date1 = new Date(date)
+      return date1.toLocaleDateString('ko-KR')
+    },
+    formatPrice(value) {
+      const val = (value / 1).toFixed(0).replace(' ', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    },
+    currentDate() {
+      return new Date().toLocaleDateString('ko-KR')
+    },
+  },
+
 };
 </script>
 
