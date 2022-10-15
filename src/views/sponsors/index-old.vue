@@ -73,10 +73,10 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import VueTailwindPagination from '@ocrv/vue-tailwind-pagination'
 import '@ocrv/vue-tailwind-pagination/styles'
 import { Search } from '@element-plus/icons-vue'
-import axios from 'axios'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Index",
@@ -91,9 +91,11 @@ export default {
       get_status_display: '',
       listLoading: true,
       dialogVisible: false,
+      limit: 10,
+      totalPage: 0,
       currentPage: 1,
       perPage: 10,
-      total: 0,
+      total: 300,
       filter: {
         page: 1,
       },
@@ -107,11 +109,12 @@ export default {
   },
   mounted() {
     this.currentPage = 1
-    this.getResult() 
+    this.getItems()  
 
 	},
 
 	computed: {
+    ...mapGetters({ vacancies: 'sponsor/GET_SPONSORS', total_count: 'sponsor/GET_TOTAL_COUNT' }),
 
 		filterBlogs() {
 			return this.sponsors.filter(item =>item.full_name.toLowerCase().includes(this.search.toLowerCase()) | item.phone.toLowerCase().includes(this.search.toLowerCase()) | item.get_status_display.toLowerCase().includes(this.search.toLowerCase()))
@@ -121,17 +124,39 @@ export default {
   methods: {
     pageChange(pageNumber) {
       this.currentPage = pageNumber
-      this.getResult()
+      this.getItems()
     },
 
-    getResult() {
-      this.listLoading = true
-      axios.get(`https://club.metsenat.uz/api/v1/sponsor-list/?page=${this.currentPage}`)
-        .then((response) => {
-          this.sponsors = response.data.results
-          this.total = response.data.count
+		...mapActions({ fetchSponsors: 'sponsor/index' }),
+    handleCurrentChange(page) {
+      this.filter.limit = this.sponsors.limit
+      this.filter.page = page
+      this.getItems()
+    },
+    handleSizeChange(page) {
+      this.filter.limit = page
+      this.filter.page = this.sponsors.page
+      this.getItems()
+    },
+
+		getItems() {
+			this.listLoading = true
+      this.fetchSponsors(this.filter)
+        .then(res => {
+          this.sponsors = res.results
+          this.totalPage = Math.ceil(res.count / this.limit)
+
+					setTimeout(() => {
+						this.listLoading = false
+					}, 1.5 * 3000)
         })
-        this.listLoading = false
+        .finally(() => {
+					this.listLoading = false
+        })
+    },
+    changePage() {
+      this.pageNum = this.filter.page
+      this.getItems()  
     },
     searchResults() {
       this.dialogVisible = false

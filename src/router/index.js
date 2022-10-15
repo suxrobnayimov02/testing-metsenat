@@ -6,8 +6,8 @@ export const routes = [
     component: () => import("@/layout/main"),
     children: [
       {
-        name: 'home',
-        path: '/home',
+        name: 'sponsors',
+        path: '/sponsors',
         component: () => import("@/views/sponsors/index.vue"),
         meta: {
           title: "Bosh sahifa",

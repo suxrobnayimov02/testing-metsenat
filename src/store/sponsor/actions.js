@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { show, index, globalSearch } from '@/api/sponsor'
+import { show, index } from '@/api/sponsor'
 export const actions = {
   index({ commit }, query) {
     return new Promise((resolve, reject) => {
@@ -21,15 +21,16 @@ export const actions = {
       })
     })
   },
-  globalSearch({ commit }, query) {
+  totalCount({ commit }, query) {
+    const filter = { ...query }
+    filter.kodp_keys = JSON.stringify(filter.kodp_keys)
     return new Promise((resolve, reject) => {
-      globalSearch(query)
-        .then(res => {
-          resolve(res)
-        })
-        .catch((res) => {
-          reject(res)
-        })
+      index(filter).then(res => {
+        commit('SET_TOTAL_COUNT', res.data)
+        resolve(res)
+      }).catch(error => {
+        reject(error)
+      })
     })
-  }
+  },
 }

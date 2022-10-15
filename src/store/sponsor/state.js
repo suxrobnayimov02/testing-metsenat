@@ -1,4 +1,5 @@
 export const state = {
-    list: [],
-    item: null,
+    total_count: null,
+    list: {},
+    sponsors: {}
 }
