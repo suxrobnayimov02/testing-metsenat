@@ -15,13 +15,13 @@ export function show(id) {
   })
 }
 
-// export function sponsors(query) {
-//   return request({
-//     url: '/sponsor-list/',
-//     method: 'get',
-//     params: query
-//   })
-// }
+export function globalSearch(query) {
+  return request({
+    url: '/search',
+    method: 'get',
+    params: query
+  })
+}
 
 
 

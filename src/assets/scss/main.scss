@@ -90,9 +90,7 @@
         & .eye {
             color: #3366FF;
         }
-        & .text-header {
-            color: #B1B1B8;
-        }
+        
         & .tbody-tr {
             border: 1px solid rgba(46, 91, 255, 0.08);
             border-radius: 8px;
@@ -106,5 +104,8 @@
         position: absolute;
         right: 0;
         top: 0;
+    }
+    & .text-header {
+        color: #B1B1B8;
     }
 }

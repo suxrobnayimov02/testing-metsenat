@@ -3,12 +3,75 @@
     <div class="mx-auto container relative">
       <div class="mx-auto">
         <div class="h-12 w-full mt-4 mb-4">
-          <el-tabs v-model="activeTab" type="border-card" class=" seeker-tab d-flex justify-content-end " >
+          <el-tabs v-model="activeTab" type="border-card" class="seeker-tab d-flex justify-content-end " >
             <el-tab-pane label="DASHBOARD" name="dashboard">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, ullam reprehenderit fugit ea veniam expedita ducimus. Distinctio architecto doloribus dicta, veritatis repudiandae eaque similique deserunt quibusdam, sint odit voluptates debitis.
             </el-tab-pane>
             <el-tab-pane label="HOMIYLAR" name="sponsor">
-              <Table />
+              <table class="w-full text-sm text-left" v-loading="listLoading">
+                <thead class="text-xs uppercase">
+                  <tr class="text-header">
+                    <th scope="col" class="py-3 px-6" style="width: 45px">
+                      #
+                    </th>
+                    <th scope="col" class="py-3 px-6">F.I.SH</th>
+                    <th scope="col" class="py-3 px-6 text-center">TEL.RAQAMI</th>
+                    <th scope="col" class="py-3 px-6 text-center">Homiylik summasi</th>
+                    <th scope="col" class="py-3 px-6 text-center">Sarflangan summa</th>
+                    <th scope="col" class="py-3 px-6 text-center">Sana</th>
+                    <th scope="col" class="py-3 px-6 text-center">Holati</th>
+                    <th scope="col" class="py-3 px-6">Amallar</th>
+                  </tr>
+                </thead>
+                <tbody v-for="item in filterBlogs" :key="item.id">
+                  <tr class="spacer">
+                    <td colspan="8"></td>
+                  </tr>
+                  <tr class="bg-white dark:bg-gray-800 mt-2 mb-2 tbody-tr"
+                    style="color: #1D1D1F;">
+                    <th
+                      scope="row"
+                      class="
+                        py-4
+                        px-6
+                        font-medium
+                        text-gray-900
+                        whitespace-nowrap
+                        dark:text-white
+                      "
+                    >
+                      {{ item.id }}
+                    </th>
+                    <td class="py-4 px-6 font-medium" style="font-size: 15px;color: #1D1D1F;">{{ item.full_name }}</td>
+                    <td class="py-4 px-6">{{ item.phone }}</td>
+                    <td class="py-4 px-6 text-center">
+                      <b>{{ item.sum }}</b><span class="uppercase pl-2" style="color: #B2B7C1;">uzs</span>
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                      <b style="color: #2E384D;">{{ item.spent }}</b><span class="uppercase pl-2" style="color: #B2B7C1;">uzs</span>
+                    </td>
+                    <td class="py-4 px-6 text-center">{{ toLocaleDateString(item.created_at) }}</td>
+                    <td class="py-4 px-6 text-center font-medium" style="font-size: 15px; color: blue;">
+                      <el-link :type="item.get_status_display === 'Yangi' ? 'primary' : 'warning'">
+                        {{ item.get_status_display }}
+                      </el-link>
+                    </td>     
+                    <td class="py-4 px-6 text-center">
+                      <button class="eye" type="text">
+                        <img src="@/assets/images/icons/eye1.svg" alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>	
+              </table>
+              <div class="text-left">
+                <el-pagination background :total="filter.totalPage" :pager-count="10" :page-size="sponsors.limit" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next" />
+                <!-- <div class="flex">
+                  <div v-for="page in totalPage" :key="page.id" >
+                    <el-button class="pagination-button">{{page}}</el-button>
+                  </div>
+                </div> -->
+              </div>
             </el-tab-pane>
             <el-tab-pane label="TALABALAR" name="student">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est dignissimos itaque repudiandae, ipsa eligendi illum. Qui nobis ab at commodi autem quidem labore ex blanditiis, doloremque iste facilis reiciendis neque!
@@ -66,6 +129,7 @@
                 "
                 placeholder="Izlash"
                 required
+                v-model="search"
               />
             </div>
           </form>
@@ -91,6 +155,7 @@
               focus:outline-none
               dark:focus:ring-blue-800
             "
+            @click="dialogVisible = true"
           >
             <svg
               class="w-6 h-6"
@@ -111,26 +176,112 @@
           </button>
         </div>
       </div>
+
+      <el-dialog v-model="dialogVisible" title="Tips" width="35%" align-center>
+        <el-form class="w-full">
+          <el-select v-model="filter.type" placeholder="Status" filterable  class="filter-item w-full" style="margin-right: 10px;">
+            <el-option :value="null" label="Barchasi" />
+            <el-option v-for="item in status" :key="item.id" :label="item.name" :value="item.id" class="w-full"/>
+          </el-select>
+        </el-form>
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="dialogVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="searchResults"
+              >Confirm</el-button
+            >
+          </span>
+        </template>
+      </el-dialog>
     </div>
 
   </div>
 </template>
 
 <script>
-import Table from "./table.vue";
+import { mapActions } from 'vuex'
+// import { setItem } from '../../utils/storage'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Index",
-  components: { Table },
 
   data() {
     return {
-      activeTab: 'sponsor'
+      activeTab: 'sponsor',
+      sponsors: [],
+      search: '',
+      // listLoading: true,
+      dialogVisible: false,
+      filter: {
+        page: 1,
+        totalPage: 0,
+        limit: 10,
+				full_name: undefined,
+      },
+			status: [
+				{ id: 1, name: 'Yangi' },
+				{ id: 2, name: 'Moderatsiyada' },
+				{ id: 3, name: 'Tasdiqlangan' },
+				{ id: 4, name: 'Bekor qilingan' }
+			]
     }
   },
-  methods: {
-  },
+  mounted() {
+    this.getItems()
+	},
 
+	computed: {
+		filterBlogs() {
+			return this.sponsors.filter(item =>item.full_name.toLowerCase().includes(this.search.toLowerCase()) | item.phone.toLowerCase().includes(this.search.toLowerCase()) | item.get_status_display.toLowerCase().includes(this.search.toLowerCase()))
+		}
+	},
+
+  methods: {
+		...mapActions({ fetchSponsors: 'sponsor/index' }),
+    handleCurrentChange(val) {
+      this.filter.limit = this.sponsors.limit
+      this.filter.page = val
+      this.getItems()
+    },
+    handleSizeChange(val) {
+      this.filter.limit = val
+      this.filter.page = this.sponsors.page
+      this.getItems()
+    },
+		getItems() {
+			// this.listLoading = true
+      this.fetchSponsors(this.filter)
+        .then(res => {
+          this.filter.limit = this.sponsors.limit
+          this.filter.page = this.sponsors.page
+          this.filter.totalPage = this.sponsors.totalPage
+          this.filter.totalPage = Math.ceil(res.count / this.filter.limit)
+					this.sponsors = res.results
+
+					setTimeout(() => {
+						// this.listLoading = false
+					}, 1.5 * 3000)
+        })
+        .finally(() => {
+					// this.listLoading = false
+        })
+    },
+
+    searchResults() {
+      this.dialogVisible = false
+    },
+		toLocaleDateString(date) {
+      const date1 = new Date(date)
+      return date1.toLocaleDateString('ko-KR')
+    },
+    formatPrice(value) {
+      const val = (value / 1).toFixed(0).replace(' ', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    },
+    currentDate() {
+      return new Date().toLocaleDateString('ko-KR')
+    },
+  }
   
 };
 </script>
@@ -138,9 +289,6 @@ export default {
 <style >
   .hover\:bg-blue-800:hover {
     background-color: #dae2fd;
-  }
-  .main-tabs {
-    background-color: #f5f5f7;
   }
   .el-tabs__nav-wrap::after {
     height: 0;
@@ -173,8 +321,8 @@ export default {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
   }
-  /* .el-tabs__content {
-    background-color: #f5f5f7;
-  } */
+  .pagination-button {
+
+  }
 
 </style>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { show, index } from '@/api/sponsor'
+import { show, index, globalSearch } from '@/api/sponsor'
 export const actions = {
   index({ commit }, query) {
     return new Promise((resolve, reject) => {
@@ -21,4 +21,15 @@ export const actions = {
       })
     })
   },
+  globalSearch({ commit }, query) {
+    return new Promise((resolve, reject) => {
+      globalSearch(query)
+        .then(res => {
+          resolve(res)
+        })
+        .catch((res) => {
+          reject(res)
+        })
+    })
+  }
 }
