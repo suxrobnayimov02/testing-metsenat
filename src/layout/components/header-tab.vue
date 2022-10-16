@@ -119,6 +119,11 @@ export default {
 			]
     }
   },
+  computed: {
+    filterBlogs() {
+			return this.sponsors.filter(item =>item.full_name.toLowerCase().includes(this.search.toLowerCase()) | item.phone.toLowerCase().includes(this.search.toLowerCase()) | item.get_status_display.toLowerCase().includes(this.search.toLowerCase()))
+		}
+  },
 	methods: {
 		searchResults() {
 			this.dialogVisible = false
