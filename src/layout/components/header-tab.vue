@@ -5,11 +5,11 @@
     >
       <div class="w-full">
         <el-button-group>
-          <el-button size="large" class="">DASHBOARD</el-button>
-          <el-button type="primary" size="large" class=""
+          <el-button size="large" class="main-btn">DASHBOARD</el-button>
+          <el-button type="primary" size="large" class="main-btn sponsor"
             >HOMIYLAR</el-button
           >
-          <el-button size="large" class="">TALABALAR</el-button>
+          <el-button size="large" class="main-btn">TALABALAR</el-button>
         </el-button-group>
       </div>
       <div class="flex filter_list">
@@ -95,7 +95,7 @@
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="dialogVisible = false" size="large">Cancel</el-button>
-            <el-button type="primary" @click="searchResults" size="large">Confirm</el-button
+            <el-button type="primary" class="sponsor" @click="searchResults" size="large">Confirm</el-button
             >
           </span>
         </template>
@@ -137,5 +137,8 @@ export default {
 }
 .filter-btn {
   width: 123px;
+}
+.sponsor {
+  background-color: #409eff;
 }
 </style>
