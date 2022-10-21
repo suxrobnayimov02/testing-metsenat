@@ -5,11 +5,11 @@
     >
       <div class="w-full">
         <el-button-group>
-          <el-button size="large" class="main-btn">DASHBOARD</el-button>
-          <el-button type="primary" size="large" class="main-btn"
+          <el-button size="large" class="">DASHBOARD</el-button>
+          <el-button type="primary" size="large" class=""
             >HOMIYLAR</el-button
           >
-          <el-button size="large" class="main-btn">TALABALAR</el-button>
+          <el-button size="large" class="">TALABALAR</el-button>
         </el-button-group>
       </div>
       <div class="flex filter_list">
