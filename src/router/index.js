@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 export const routes = [
   {
-    path: "/",
+    path: "/sponsors",
     component: () => import("@/layout/main"),
     children: [
       {
         name: 'sponsors',
-        path: '/sponsors',
+        path: '/',
         component: () => import("@/views/sponsors/index.vue"),
         meta: {
           title: "Bosh sahifa",

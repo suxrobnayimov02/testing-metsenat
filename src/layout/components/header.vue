@@ -1,7 +1,7 @@
 <template>
   <div class="app">
 		<nav class="bg-white border-gray-200 pt-1 pb-1 rounded dark:bg-gray-900 items-center">
-			<div class="container flex flex-wrap justify-between items-center mx-auto">
+			<div class="container px-6 flex flex-wrap justify-between items-center mx-auto">
 				<a href="/home" class="flex items-center">
 					<img src="@/assets/images/img/admin-logo.svg" alt="" />
 				</a>
@@ -10,7 +10,7 @@
 					<svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
 				</button>
 				<div class="hidden w-full md:block md:w-auto" id="navbar-default">
-					<ul class="flex flex-col items-center p-4 mt-4 bg-gray-50 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 ">
+					<ul class="flex flex-col items-center py-4 mt-4 bg-gray-50 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 ">
 						<li>
 								<button type="button" class="user-btn text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex justify-between items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600">
 									Shohrux

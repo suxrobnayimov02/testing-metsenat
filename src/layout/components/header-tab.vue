@@ -1,8 +1,7 @@
 <template>
   <div class="mx-auto main-app">
     <div
-      class="flex justify-between container mx-auto items-center"
-      style="padding: 20px 0"
+      class="flex justify-between container px-6 py-4 mx-auto items-center"
     >
       <div class="w-full">
         <el-button-group>

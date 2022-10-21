@@ -1,6 +1,6 @@
 <template>
   <div class="app main-tabs" style="padding-top: 30px;">
-    <div class="mx-auto container">
+    <div class="mx-auto container px-4">
       <table class="w-full text-sm text-left" v-loading="listLoading">
         <thead class="text-xs uppercase">
           <tr class="text-header">
